@@ -14,8 +14,6 @@ const Home: React.FC = () => {
     checked ? document.body.classList.add('dark') : document.body.classList.remove('dark')
   }
 
-  const isDisable = () => !phone?.replace(/[^0-9]/gi, '')
-
   const go = (e?: any) => {
     if (e) e.preventDefault()
 
@@ -45,7 +43,7 @@ const Home: React.FC = () => {
                   <IonLabel position="floating">Phone Number</IonLabel>
                   <IonInput value={phone} onIonChange={e => setPhone(e.detail.value!)} onSubmit={go} />
                 </IonItem>
-                <IonButton type="submit" expand="block" disabled={isDisable()} onClick={go}>Start!</IonButton>
+                <IonButton type="submit" expand="block" disabled={!phone?.replace(/[^0-9]/gi, '')}>Start!</IonButton>
               </form>
             </IonCardContent>
           </IonCard>
