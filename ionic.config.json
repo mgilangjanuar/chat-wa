@@ -1,0 +1,7 @@
+{
+  "name": "chatwa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
