@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage } from '@ionic/react'
+import { IonButton, IonCard, IonCardContent, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonToast } from '@ionic/react'
 import { logoWhatsapp, moonSharp, sunnyOutline } from 'ionicons/icons'
 import React, { useState } from 'react'
 import './Home.css'
@@ -6,6 +6,7 @@ import './Home.css'
 const Home: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(localStorage.getItem('theme') === 'dark')
   const [phone, setPhone] = useState<string>()
+  const [error, setError] = useState<string>()
 
   const changeTheme = (checked: boolean) => {
     setIsDarkMode(checked)
@@ -15,8 +16,13 @@ const Home: React.FC = () => {
 
   const isDisable = () => !phone?.replace(/[^0-9]/gi, '')
 
-  const go = () => {
+  const go = (e?: any) => {
+    if (e) e.preventDefault()
+
     const number = phone?.replace(/[^0-9]/gi, '').replace(/^08/gi, '628')
+    if (!number) {
+      return setError('Please use a valid phone number')
+    }
     window.location.href = `https://wa.me/${number}`
   }
 
@@ -34,15 +40,18 @@ const Home: React.FC = () => {
           <br />
           <IonCard>
             <IonCardContent>
-              <IonItem>
-                <IonLabel position="floating">Phone Number</IonLabel>
-                <IonInput value={phone} onIonChange={e => setPhone(e.detail.value!)} />
-              </IonItem>
-              <IonButton type="submit" expand="block" disabled={isDisable()} onClick={go}>Start!</IonButton>
+              <form onSubmit={e => go(e)}>
+                <IonItem>
+                  <IonLabel position="floating">Phone Number</IonLabel>
+                  <IonInput value={phone} onIonChange={e => setPhone(e.detail.value!)} onSubmit={go} />
+                </IonItem>
+                <IonButton type="submit" expand="block" disabled={isDisable()} onClick={go}>Start!</IonButton>
+              </form>
             </IonCardContent>
           </IonCard>
         </div>
       </IonContent>
+      <IonToast position="bottom" color="danger" isOpen={!!error} message={error} duration={3000} onDidDismiss={() => setError('')} />
     </IonPage>
   )
 }
