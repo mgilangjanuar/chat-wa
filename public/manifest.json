@@ -1,6 +1,6 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "short_name": "Chat to WhatsApp",
+  "name": "Chat to WhatsApp",
   "icons": [
     {
       "src": "assets/icon/favicon.png",
