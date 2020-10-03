@@ -41,7 +41,7 @@ const Home: React.FC = () => {
               <form onSubmit={e => go(e)}>
                 <IonItem>
                   <IonLabel position="floating">Phone Number</IonLabel>
-                  <IonInput value={phone} onIonChange={e => setPhone(e.detail.value!)} onSubmit={go} />
+                  <IonInput type="tel" value={phone} onIonChange={e => setPhone(e.detail.value!)} onSubmit={go} />
                 </IonItem>
                 <IonButton type="submit" expand="block" disabled={!phone?.replace(/[^0-9]/gi, '')}>Start!</IonButton>
               </form>
