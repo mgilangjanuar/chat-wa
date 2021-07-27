@@ -20,7 +20,8 @@ const Home: React.FC = () => {
   const go = (e?: any) => {
     if (e) e.preventDefault()
 
-    const number = `${(code || '+62').replace(/^\+/gi, '')}${phone?.replace(/[^0-9]/gi, '').replace(/^0/gi, '')}`
+    const dialCode = (code || '+62').replace(/^\+/gi, '')
+    const number = `${dialCode}${phone?.replace(/[^0-9]/gi, '').replace(new RegExp(`^0|^${dialCode}|^\\${code}`, 'gi'), '')}`
     if (!number) {
       return setError('Please use a valid phone number')
     }
