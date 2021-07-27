@@ -8,7 +8,7 @@ const COUNTRY_CODES = [{"name":"Afghanistan","dialCode":"+93","isoCode":"AF","fl
 const Home: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(localStorage.getItem('theme') === 'dark')
   const [phone, setPhone] = useState<string>()
-  const [code, setCode] = useState<string>('+62')
+  const [code, setCode] = useState<string>(window.localStorage.getItem('code') || '+62')
   const [error, setError] = useState<string>()
 
   const changeTheme = (checked: boolean) => {
@@ -24,6 +24,7 @@ const Home: React.FC = () => {
     if (!number) {
       return setError('Please use a valid phone number')
     }
+    window.localStorage.setItem('code', code)
     window.location.href = `https://wa.me/${number}`
   }
 
