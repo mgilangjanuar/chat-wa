@@ -45,7 +45,7 @@ const Home: React.FC = () => {
             <IonCardContent>
               <form onSubmit={go}>
                 <IonItem>
-                  <IonSelect value={code} interface="action-sheet" onIonChange={e => setCode(e.detail.value)}>
+                  <IonSelect style={{ maxWidth: '100%' }} value={code} interface="action-sheet" onIonChange={e => setCode(e.detail.value)}>
                     {COUNTRY_CODES.map(code => <IonSelectOption value={code.dialCode}>({code.dialCode}) {code.name}</IonSelectOption>)}
                   </IonSelect>
                 </IonItem>
