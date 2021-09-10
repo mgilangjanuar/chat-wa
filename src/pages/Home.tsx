@@ -1,3 +1,4 @@
+import { InputChangeEventDetail } from '@ionic/core'
 import { IonButton, IonCard, IonCardContent, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonSelect, IonSelectOption, IonToast } from '@ionic/react'
 import { logoWhatsapp, moonSharp, sunnyOutline } from 'ionicons/icons'
 import React, { useState } from 'react'
@@ -15,6 +16,13 @@ const Home: React.FC = () => {
     setIsDarkMode(checked)
     checked ? localStorage.setItem('theme', 'dark') : localStorage.removeItem('theme')
     checked ? document.body.classList.add('dark') : document.body.classList.remove('dark')
+  }
+
+  const onPhoneChange = (e: CustomEvent<InputChangeEventDetail>) => {
+    const dialPhone = e.detail.value ?? ''
+    const dialCode = COUNTRY_CODES.find(x => dialPhone.startsWith(x.dialCode))?.dialCode
+    setCode(dialCode ?? code)
+    setPhone(dialPhone)
   }
 
   const go = (e?: any) => {
@@ -51,7 +59,7 @@ const Home: React.FC = () => {
                 </IonItem>
                 <IonItem>
                   <IonLabel position="floating">Phone Number</IonLabel>
-                  <IonInput type="tel" value={phone} onIonChange={e => setPhone(e.detail.value!)} onSubmit={go} />
+                  <IonInput type="tel" value={phone} onIonChange={onPhoneChange} onSubmit={go} />
                 </IonItem>
                 <IonButton type="submit" expand="block" disabled={!phone?.replace(/[^0-9]/gi, '')}>Start!</IonButton>
               </form>
